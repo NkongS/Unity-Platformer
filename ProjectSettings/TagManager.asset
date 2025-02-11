@@ -3,7 +3,13 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 3
-  tags: []
+  tags:
+  - Enemy
+  - Hazard
+  - Coin
+  - Portal
+  - Bullet
+  - Platform
   layers:
   - Default
   - TransparentFX
@@ -49,6 +55,9 @@ TagManager:
     locked: 0
   - name: Accessory
     uniqueID: 1010662679
+    locked: 0
+  - name: Bullet
+    uniqueID: 348985517
     locked: 0
   - name: Enemy
     uniqueID: 850092439

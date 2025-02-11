@@ -3,9 +3,9 @@ using UnityEngine.InputSystem;
 
 public class Move : MonoBehaviour
 {
-    [SerializeField] float runSpeed = 2.0f;
-    [SerializeField] float jumpSpeed = 4.0f;
-    [SerializeField] float climbSpeed = 2.0f;
+    [SerializeField] float runSpeed = 4.0f;
+    [SerializeField] float jumpSpeed = 5.0f;
+    [SerializeField] float climbSpeed = 3.0f;
 
     Vector2 move;
 
@@ -18,7 +18,7 @@ public class Move : MonoBehaviour
     float gravityScaleAtStart;
 
     private int jumpCount = 0;
-    private const int maxJumps = 2;
+    private const int maxJumps = 1;
 
     void Start()
     {
@@ -47,6 +47,7 @@ public class Move : MonoBehaviour
         // if(!theCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))){ return; }
         if (value.isPressed && jumpCount < maxJumps)
         {
+            rb.gravityScale = gravityScaleAtStart;
             rb.linearVelocityY += jumpSpeed;
             jumpCount++;
         }

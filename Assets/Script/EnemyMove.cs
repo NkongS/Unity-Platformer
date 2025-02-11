@@ -6,14 +6,23 @@ public class EnemyMove : MonoBehaviour
 {
     [SerializeField] float moveSpeed = 1.0f;
     Rigidbody2D rb;
+    Animator animator;
+
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
     }
 
     void Update()
     {
-        rb.linearVelocityX = moveSpeed;
+        if (animator != null && animator.GetBool("skullDead"))
+        {
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        rb.linearVelocity = new Vector2(moveSpeed, rb.linearVelocity.y);
     }
 
     void OnTriggerExit2D(Collider2D other)
