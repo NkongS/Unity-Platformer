@@ -8,6 +8,8 @@ public class ScoreController : MonoBehaviour
     private int score = 0;
     Move moveScript;
     private bool isPortalOpen = false;
+    [SerializeField] AudioClip coinPickupSFX;
+    [SerializeField] int coinValue = 10;
 
     void Start()
     {
@@ -20,6 +22,8 @@ public class ScoreController : MonoBehaviour
         if (collision.gameObject.CompareTag("Coin"))
         {
             score++;
+            FindFirstObjectByType<GameSession>().AddToScore(coinValue);
+            AudioSource.PlayClipAtPoint(coinPickupSFX, Camera.main.transform.position);
             Debug.Log("Score: " + score);
             Destroy(collision.gameObject);
         }
@@ -60,6 +64,13 @@ public class ScoreController : MonoBehaviour
     IEnumerator Reset()
     {
         yield return new WaitForSeconds(5);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        if (SceneManager.GetActiveScene().name == "Level1")
+        {
+            SceneManager.LoadScene("Level2");
+        }
+        else
+        {
+            SceneManager.LoadScene("Level1");
+        }
     }
 }

@@ -8,11 +8,14 @@ public class PlayerDeathHandler : MonoBehaviour
     public float deathDelay = 2f;
     private bool isDead = false;
     Move moveScript;
+    Shooting shootScript;
+    [SerializeField] AudioClip deathSFX;
 
     void Start()
     {
         animator = GetComponent<Animator>();
         moveScript = GetComponent<Move>();
+        shootScript = GetComponent<Shooting>();
     }
 
     void OnCollisionEnter2D(Collision2D collision)
@@ -33,23 +36,20 @@ public class PlayerDeathHandler : MonoBehaviour
 
     void TriggerDeath()
     {
-        if (animator == null)
-        {
-            Debug.LogError("Animator not assigned.");
-            return;
-        }
+        moveScript.enabled = false;
+        shootScript.enabled = false;
+        
+        AudioSource.PlayClipAtPoint(deathSFX, Camera.main.transform.position);
         isDead = true;
+        
         animator.SetBool("isDead", true);
-        if (moveScript != null)
-        {
-            moveScript.enabled = false;
-        }
+
         StartCoroutine(HandleDeath());
     }
 
     IEnumerator HandleDeath()
     {
         yield return new WaitForSeconds(deathDelay);
-        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+        FindFirstObjectByType<GameSession>().ProcessPlayerDeath();{}
     }
 }
