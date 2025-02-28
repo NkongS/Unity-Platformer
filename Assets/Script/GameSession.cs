@@ -53,7 +53,7 @@ public class GameSession : MonoBehaviour
         }
         else
         {
-            SceneManager.LoadScene(0); // assume that scene 0 is the first one..or the menu
+            SceneManager.LoadScene(5); // assume that scene 0 is the first one..or the menu
             Destroy(gameObject); // Destroy teh game session
         }
     }

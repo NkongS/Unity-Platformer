@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 public class Move : MonoBehaviour
 {
     [SerializeField] float runSpeed = 4.0f;
-    [SerializeField] float jumpSpeed = 5.0f;
+    [SerializeField] float jumpSpeed = 2.5f;
     [SerializeField] float climbSpeed = 3.0f;
 
     Vector2 move;
@@ -34,6 +34,7 @@ public class Move : MonoBehaviour
         runJohn();
         climbLadder();
         if (theCollider.IsTouchingLayers(LayerMask.GetMask("Ground"))) { jumpCount = 0; }
+        if (theCollider.IsTouchingLayers(LayerMask.GetMask("Enemy"))) { jumpCount = 0; }
     }
 
     void OnMove(InputValue value)

@@ -58,19 +58,14 @@ public class ScoreController : MonoBehaviour
             moveScript.enabled = false;
         }
 
-        StartCoroutine(Reset());
+        StartCoroutine(TP());
     }
 
-    IEnumerator Reset()
+    IEnumerator TP()
     {
         yield return new WaitForSeconds(5);
-        if (SceneManager.GetActiveScene().name == "Level1")
-        {
-            SceneManager.LoadScene("Level2");
-        }
-        else
-        {
-            SceneManager.LoadScene("Level1");
-        }
+        int currentSceneIndex = SceneManager.GetActiveScene().buildIndex;
+        int nextSceneIndex = (currentSceneIndex + 1) % SceneManager.sceneCountInBuildSettings;
+        SceneManager.LoadScene(nextSceneIndex);
     }
 }
